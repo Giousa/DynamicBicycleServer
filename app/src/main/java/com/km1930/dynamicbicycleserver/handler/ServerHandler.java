@@ -4,6 +4,8 @@ import com.km1930.dynamicbicycleserver.common.CustomHeartbeatHandler;
 import com.km1930.dynamicbicycleserver.model.DeviceValue;
 import com.km1930.dynamicbicycleserver.model.TypeData;
 
+import java.util.List;
+
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -22,6 +24,13 @@ public class ServerHandler extends CustomHeartbeatHandler {
     @Override
     protected void handleData(ChannelHandlerContext channelHandlerContext, Object msg) {
         System.out.println(name+"  handleData:"+msg);
+
+        List<DeviceValue> deviceValues = (List<DeviceValue>) msg;
+        String dev = String.valueOf(deviceValues.get(1));
+        System.out.println("dev = "+dev);
+        int angle = Integer.parseInt(String.valueOf(deviceValues.get(3)));
+        System.out.println("angle = "+angle);
+
 
         DeviceValue s = new DeviceValue();
         s.setType(TypeData.CUSTOME);
