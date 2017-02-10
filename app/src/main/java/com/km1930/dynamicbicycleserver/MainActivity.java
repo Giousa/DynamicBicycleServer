@@ -25,18 +25,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
+        serverStart();
+
     }
 
     private void initView() {
-
-        Button start = (Button) findViewById(R.id.btn_server);
-
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                serverStart();
-            }
-        });
+//
+//        Button start = (Button) findViewById(R.id.btn_server);
+//
+//        start.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                serverStart();
+//            }
+//        });
     }
 
     private void serverStart() {

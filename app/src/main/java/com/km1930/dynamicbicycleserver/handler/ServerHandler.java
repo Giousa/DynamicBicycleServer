@@ -1,6 +1,11 @@
 package com.km1930.dynamicbicycleserver.handler;
 
+import com.google.common.primitives.Bytes;
 import com.km1930.dynamicbicycleserver.common.CustomHeartbeatHandler;
+import com.km1930.dynamicbicycleserver.model.IntelDevice;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -21,10 +26,19 @@ public class ServerHandler extends CustomHeartbeatHandler {
     @Override
     protected void handleData(ChannelHandlerContext channelHandlerContext, ByteBuf buf) {
         byte[] data = new byte[buf.readableBytes() - 5];
+        System.out.println(name+" handleData"+Arrays.toString(data));
         ByteBuf responseBuf = Unpooled.copiedBuffer(buf);
         buf.skipBytes(5);
         buf.readBytes(data);
         String content = new String(data);
+//        try {
+//            IntelDevice intelDevice = IntelDevice.ADAPTER.decode(content.getBytes());
+//            System.out.println("IntelDevice:"+intelDevice);
+////            System.out.println("IntelDevice  deviceId:"+intelDevice.deviceId);
+////            System.out.println("IntelDevice  speed:"+intelDevice.speed);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         System.out.println(name + " get content: " + content);
         channelHandlerContext.write(responseBuf);
     }

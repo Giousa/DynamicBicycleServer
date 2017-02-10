@@ -1,8 +1,6 @@
-package com.km1930.dynamicbicycleserver;
+package com.km1930.dynamicbicycleserver.test;
 
 import com.km1930.dynamicbicycleserver.handler.ServerHandler;
-
-import org.junit.Test;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -14,21 +12,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
-import static org.junit.Assert.*;
-
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Description:
+ * Author:Giousa
+ * Date:2017/2/10
+ * Email:65489469@qq.com
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class ServerTest {
 
-    @Test
-    public void startServer() throws Exception{
+    public static void main(String[] args) {
         NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
         NioEventLoopGroup workGroup = new NioEventLoopGroup(4);
         try {
