@@ -1,5 +1,7 @@
 package com.km1930.dynamicbicycleserver.test;
 
+import com.km1930.dynamicbicycleserver.code.MsgPackDecode;
+import com.km1930.dynamicbicycleserver.code.MsgPackEncode;
 import com.km1930.dynamicbicycleserver.handler.ServerHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -9,7 +11,6 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 /**
@@ -32,7 +33,8 @@ public class ServerTest {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline p = socketChannel.pipeline();
                             p.addLast(new IdleStateHandler(10, 0, 0));
-                            p.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, -4, 0));
+                            p.addLast(new MsgPackDecode());
+                            p.addLast(new MsgPackEncode());
                             p.addLast(new ServerHandler());
                         }
                     });

@@ -1,14 +1,9 @@
 package com.km1930.dynamicbicycleserver.handler;
 
-import com.google.common.primitives.Bytes;
 import com.km1930.dynamicbicycleserver.common.CustomHeartbeatHandler;
-import com.km1930.dynamicbicycleserver.model.IntelDevice;
+import com.km1930.dynamicbicycleserver.model.DeviceValue;
+import com.km1930.dynamicbicycleserver.model.TypeData;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -23,25 +18,19 @@ public class ServerHandler extends CustomHeartbeatHandler {
         super("server");
     }
 
+
     @Override
-    protected void handleData(ChannelHandlerContext channelHandlerContext, ByteBuf buf) {
-        byte[] data = new byte[buf.readableBytes() - 5];
-        System.out.println(name+" handleData"+Arrays.toString(data));
-        ByteBuf responseBuf = Unpooled.copiedBuffer(buf);
-        buf.skipBytes(5);
-        buf.readBytes(data);
-        String content = new String(data);
-//        try {
-//            IntelDevice intelDevice = IntelDevice.ADAPTER.decode(content.getBytes());
-//            System.out.println("IntelDevice:"+intelDevice);
-////            System.out.println("IntelDevice  deviceId:"+intelDevice.deviceId);
-////            System.out.println("IntelDevice  speed:"+intelDevice.speed);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        System.out.println(name + " get content: " + content);
-        channelHandlerContext.write(responseBuf);
+    protected void handleData(ChannelHandlerContext channelHandlerContext, Object msg) {
+        System.out.println(name+"  handleData:"+msg);
+
+        DeviceValue s = new DeviceValue();
+        s.setType(TypeData.CUSTOME);
+        s.setSpeed(0);
+        s.setAngle(15);
+        s.setDeviceName("server response");
+        channelHandlerContext.writeAndFlush(s);
     }
+
 
     @Override
     protected void handleReaderIdle(ChannelHandlerContext ctx) {
